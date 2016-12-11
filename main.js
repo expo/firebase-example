@@ -22,10 +22,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-function storeValueAsync(value) {
-  return firebase.database().ref('example').set({ text: value });
-}
-
 class App extends React.Component {
   state = {
     text: '',
@@ -34,10 +30,16 @@ class App extends React.Component {
 
 
   componentWillMount() {
+    let initialLoad = true;
     this.setState({loading: true});
+
     firebase.database().ref('example').on('value', (snapshot) => {
       this.setState({text: snapshot.val() && snapshot.val().text});
-      this.setState({loading: false});
+
+      if (initialLoad) {
+        this.setState({loading: false});
+        initialLoad = false;
+      }
     });
   }
 
@@ -68,7 +70,7 @@ class App extends React.Component {
   _saveValue = async () => {
     try {
       this.setState({loading: true});
-      await storeValueAsync(this.state.text);
+      await firebase.database().ref('example').set({ text: this.state.text });
     } catch(e) {
       // Error! oh no
     } finally {
@@ -89,7 +91,6 @@ class App extends React.Component {
       );
     }
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -98,6 +99,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
   },
   textInput: {
     width: Dimensions.get('window').width - 30,

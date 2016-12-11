@@ -1,6 +1,6 @@
 {
   "name": "firebase-example",
-  "description": "An empty new project",
+  "description": "Save some text to Firebase. A simple example that shows how to setup Firebase in your Exponent app, and interact with their most basic set/get API.",
   "slug": "firebase-example",
   "sdkVersion": "12.0.0",
   "version": "1.0.0",
