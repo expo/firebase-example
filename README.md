@@ -8,3 +8,7 @@ set/get API.
 convenience)
 
 Try it: https://getexponent.com/@community/firebase-example
+
+## Learn more
+
+[Read the docs on Firebase and Exponent](https://docs.getexponent.com/versions/latest/guides/using-firebase.html)
